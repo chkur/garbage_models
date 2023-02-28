@@ -36,6 +36,9 @@ class Category(models.Model):
         max_length=100,
     )
 
+    def __str__(self):
+        return self.name
+
 
 class Product(models.Model):
     name = models.CharField(
@@ -49,6 +52,9 @@ class Product(models.Model):
         "Category",
         on_delete=models.PROTECT,
     )
+
+    def __str__(self):
+        return self.name
 
 
 class Selling(GarbageModel):
@@ -67,3 +73,6 @@ class Selling(GarbageModel):
     order_data = models.JSONField(
         default=dict,
     )
+
+    def __str__(self):
+        return f"{self.product_id} - {self.dt}"
