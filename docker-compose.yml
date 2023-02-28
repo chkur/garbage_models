@@ -11,6 +11,16 @@ services:
       - POSTGRES_PASSWORD=POSTGRES_PASSWORD
       - POSTGRES_DB=example_db
 
+  garbage_db:
+    image: postgres:latest
+    restart: unless-stopped
+    volumes:
+      - postgres_data2:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=some_user
+      - POSTGRES_PASSWORD=POSTGRES_PASSWORD
+      - POSTGRES_DB=garbage_db
+
   web:
     build:
       &web-build
@@ -25,9 +35,13 @@ services:
     expose:
       - 8000
     command: >
-      bash -c "python /usr/src/app/manage.py migrate && python /usr/src/app/manage.py runserver 0.0.0.0:8000"
+      bash -c "python /usr/src/app/manage.py runserver 0.0.0.0:8000"
     ports:
       - 8000:8000
+    depends_on:
+      - db
+      - garbage_db
 
 volumes:
   postgres_data:
+  postgres_data2:

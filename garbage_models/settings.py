@@ -82,7 +82,15 @@ DATABASES = {
         "PASSWORD": "POSTGRES_PASSWORD",
         "HOST": "db",
         "PORT": 5432,
-    }
+    },
+    "garbage": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "garbage_db",
+        "USER": "some_user",
+        "PASSWORD": "POSTGRES_PASSWORD",
+        "HOST": "garbage_db",
+        "PORT": 5432,
+    },
 }
 
 
